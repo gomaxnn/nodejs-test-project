@@ -1,14 +1,46 @@
 'use strict';
 
-const express = require('express'),
-    app = express();
+const express = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
 
+const port = process.env.PORT || 9000;
 
-// Mounting the API to the current version (path)
-app.use('/', function (req, res) {
-    res.send({});
-});
+const app = express();
+const connection = connect();
 
-app.listen(9000, function () {
-    console.log(' The app is up on port: ', 9000);
-});
+module.exports = {
+    app,
+    connection
+};
+
+// Bootstrap routes
+require('./config/passport')(passport);
+require('./config/express')(app, passport);
+require('./config/routes')(app, passport);
+
+connection
+    .on('error', console.log)
+    .on('disconnected', connect)
+    .once('open', listen);
+
+function listen() {
+    // if (app.get('env') === 'test') return;
+    app.listen(port, function() {
+        console.log('Express app started on port ' + port);
+    });
+}
+
+function connect() {
+    let options = {
+        server: {
+            socketOptions: {
+                keepAlive: 1
+            }
+        }
+    };
+    
+    // var connection = mongoose.connect(config.db, options).connection;
+    let connection = mongoose.connect('mongodb://localhost/test', options).connection;
+    return connection;
+}
