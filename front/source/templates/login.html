@@ -1,0 +1,19 @@
+<div class="panel panel-default" ng-controller="LoginController" ng-show="ui.userBlock.showLogin">
+    <div class="panel-heading">
+        <h3 class="panel-title">Login</h3>
+    </div>
+    
+    <form class="panel-body">
+        <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" class="form-control" placeholder="E-mail" ng-model="loginData.email">
+        </div>
+        
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password" ng-model="loginData.password">
+        </div>
+        
+        <button class="btn btn-default" ng-click="login()">Login</button>
+    </form>
+</div>

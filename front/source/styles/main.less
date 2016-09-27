@@ -1,0 +1,57 @@
+/**
+ * Third Party
+ */
+@import "../../bower_components/bootstrap/dist/css/bootstrap.min.css";
+@import "../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css";
+
+/**
+ * Fonts
+ */
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('fonts/glyphicons-halflings-regular.eot');
+    src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+         url('../fonts/glyphicons-halflings-regular.woff') format('woff'),
+         url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+         url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+@cararra: #F2F1EF;
+@edward: #ABB7B7;
+@lynch: #6C7A89;
+@iron: #DDDDDD;
+
+body {
+    background-color: @cararra;
+}
+
+hr {
+    border-top-color: @iron;
+}
+
+.user-block {
+    max-width: 400px;
+}
+
+.notes-block {
+    h4 {
+        margin-bottom: 20px;
+    }
+    
+    .actions {
+        font-size: 0;
+        
+        span {
+            display: inline-block;
+            margin-left: 15px;
+            font-size: 14px;
+            color: @edward;
+            cursor: pointer;
+            
+            &:hover {
+                color: @lynch;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "front",
+  "main": "index.js",
+  "homepage": "https://github.com/gomaxnn/nodejs-test-project",
+  "authors": [
+    "Maksim <gorbunovnn@gmail.com>"
+  ],
+  "description": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7"
+  }
+}

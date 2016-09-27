@@ -1,0 +1,22 @@
+<p ng-show="ui.notesList.showEmptyText">You have no notes yet</p>
+
+<div ng-controller="NotesListController">
+    <div class="notes-block" ng-repeat="(date, notes) in notesData">
+        <h4>{{date}}</h4>
+        
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="note in notes">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8 col-xs-8">{{note.text}}</div>
+                    <div class="col-md-3 col-sm-4 col-xs-4">
+                        <div class="pull-left text-warning">{{note.spent}}h</div>
+                        <div class="pull-right actions">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="modal" data-target="#notesFormModal" ng-click="ui.notesForm.open(note)"></span>
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="modal" data-target="#notesDeleteModal" ng-click="ui.notesDeleteAlert.open(note.id)"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
