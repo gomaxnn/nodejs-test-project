@@ -2,14 +2,13 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const logger = require('winston-color');
 
-let bodyParser = require('body-parser');
-let methodOverride = require('method-override');
+let app = express();
 
-let port = process.env.PORT || 9000;
-
-const app = express();
-const connection = connect();
+app.set('appconf', require('./config')); // load config
 
 app.use(bodyParser.json());
 app.use(methodOverride());
@@ -25,14 +24,19 @@ app.use(function(req, res, next) {
 // Routes
 require('./config/routes')(app);
 
+// Database connection
+let connection = connect();
+
 connection
-    .on('error', console.log)
+    .on('error', logger.error)
     .on('disconnected', connect)
     .once('open', listen);
 
 function listen() {
+    let port = app.get('appconf').port || 9000;
+    
     app.listen(port, function() {
-        console.log('Express app started on port ' + port);
+        logger.info('Express app started on port ' + port);
     });
 }
 
@@ -45,9 +49,7 @@ function connect() {
         }
     };
     
-    // var connection = mongoose.connect(config.db, options).connection;
-    let connection = mongoose.connect('mongodb://localhost/test', options).connection;
-    return connection;
+    return mongoose.connect(app.get('appconf').mongodb.uri, options).connection;
 }
 
 module.exports = {

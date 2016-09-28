@@ -1,14 +1,10 @@
 'use strict';
 
-let jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-let User = require('../handlers/user');
-let user = new User();
-
-let Notes = require('../handlers/notes');
-let notes = new Notes();
-
-let UserModel = require('../models/user');
+const user = require('../handlers/user');
+const notes = require('../handlers/notes');
+const UserModel = require('../models/user');
 
 module.exports = function(app) {
     
@@ -31,7 +27,7 @@ function isAuthenticated(req, res, next) {
         return res.status(403).json({ message: 'Token not provided' });
     }
     
-    jwt.verify(token, 'jwtsupersecret', function(err, decoded) {
+    jwt.verify(token, req.app.get('appconf').jwt.secret, function(err, decoded) {
         if (err) {
             return res.status(401).json({
                 message: 'Failed to authenticate token'

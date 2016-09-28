@@ -1,9 +1,9 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let crypto = require('crypto');
+const mongoose = require('mongoose');
+const crypto = require('crypto');
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 /**
  * User schema

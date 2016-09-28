@@ -23,7 +23,8 @@
     "mongoose": "^4.6.1",
     "mongoose-user": "0.0.1",
     "rimraf": "^2.5.4",
-    "validator": "^5.7.0"
+    "validator": "^5.7.0",
+    "winston-color": "^1.0.0"
   },
   "devDependencies": {}
 }

@@ -1,9 +1,10 @@
 'use strict';
 
-let validator = require('validator');
-let NotesModel = require('../models/notes');
+const validator = require('validator');
+const logger = require('winston-color');
+const NotesModel = require('../models/notes');
 
-module.exports = function() {
+let NotesHandler = function() {
     
     // Create a note
     this.create = function(req, res) {
@@ -176,4 +177,6 @@ module.exports = function() {
 		    });
 		});
     }
-};
+}
+
+module.exports = new NotesHandler();

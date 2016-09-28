@@ -1,10 +1,13 @@
 'use strict';
 
-let jwt = require('jsonwebtoken');
-let validator = require('validator');
-let UserModel = require('../models/user');
+const jwt = require('jsonwebtoken');
+const validator = require('validator');
+const logger = require('winston-color');
+const config = require('../config');
 
-module.exports = function() {
+const UserModel = require('../models/user');
+
+let UserHandlers = function() {
     
     // Create new user
     this.signup = function(req, res) {
@@ -40,11 +43,11 @@ module.exports = function() {
         
         user.save(function(err) {
             if (err) {
-                console.error('User created Error', err);
-                return res.status(500).json({ message: err.message });
+                logger.error('User created', err.message);
+                return res.status(400).json({ message: err.message });
             }
             
-            console.log('User created', { email: user.email, name: user.name });
+            logger.info('User created', user);
             return res.json({ data: {} });
         });
     }
@@ -77,20 +80,20 @@ module.exports = function() {
                 return res.status(400).json({ message: 'Invalid password' });
             }
             
-            console.log('User logged in', { email: user.email, name: user.name });
+            logger.info('User ' + user.email + ' logged in');
             
             return res.json({
                 data: {
                     email: user.email,
                     name: user.name
                 },
-                token: generateToken.call(user)
+                token: generateToken.call(user, req.app)
             });
         });
     }
     
     // Generating access token
-    let generateToken = function() {
+    let generateToken = function(app) {
         return jwt.sign({
             uid: this._id,
             scope: [
@@ -99,6 +102,8 @@ module.exports = function() {
                 'notes.update',
                 'notes.delete'
             ]
-        }, 'jwtsupersecret', { expiresIn: 3600 });
+        }, app.get('appconf').jwt.secret, { expiresIn: 3600 });
     }
-};
+}
+
+module.exports = new UserHandlers();
