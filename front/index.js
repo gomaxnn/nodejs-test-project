@@ -1,14 +1,14 @@
 'use strict';
 
-const express = require('express'),
-    app = express();
+const express = require('express');
+const logger = require('winston-color');
+const config = require('./config');
 
+let app = express();
+let port = config.port || 9001;
 
-// Mounting the API to the current version (path)
-app.use('/', function (req, res) {
-    res.send('Here be dragons');
-});
+app.use(express.static(__dirname + '/build'));
 
-app.listen(9001, function () {
-    console.log(' The app is up on port: ', 9001);
+app.listen(port, function() {
+    logger.info('The Front App is up on port: ', port);
 });

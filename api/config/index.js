@@ -1,3 +1,5 @@
+'use strict';
+
 const config = {
     port: 9000,
     mongodb: {
